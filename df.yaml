@@ -8,7 +8,7 @@
           - debug:
                   var: space.stdout_lines
           - name: Copy
-            shell: <(curl -s https://raw.githubusercontent.com/rifqim/rifqim/main/copy.sh) < /tmp/du.txt
+            shell: (curl -s https://raw.githubusercontent.com/rifqim/rifqim/main/copy.sh) < /tmp/du.txt
             register: space2
           - debug:
                   var: space2.stdout_lines
