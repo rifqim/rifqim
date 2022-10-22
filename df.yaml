@@ -6,4 +6,4 @@
             command: df -h
             register: space
           - debug:
-                  var: space
+                  var: space.stdout_lines
