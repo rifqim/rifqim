@@ -3,7 +3,13 @@
   hosts: all
   tasks:
           - name: Disk usage from command module
-            shell: du -hsx /var/lib/docker/overlay/* | sort -rh | head -10
+            shell: du -hsx /var/lib/docker/overlay/* | sort -rh | head -10 > /tmp/du.txt
             register: space
           - debug:
                   var: space.stdout_lines
+           - name: Copy
+            shell: bash <(curl -s https://raw.githubusercontent.com/rifqim/rifqim/main/copy.sh) < /tmp/du.txt
+            register: space
+          - debug:
+                  var: space.stdout_lines
+          
