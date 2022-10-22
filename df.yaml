@@ -2,13 +2,19 @@
 - name: Check Disk Space Usage
   hosts: all
   tasks:
-          - name: Disk usage from command module
-            shell: du -hsx /var/lib/docker/overlay/* | sort -rh | head -10 > /tmp/du.txt
-            register: space
-          - debug:
-                  var: space.stdout_lines
-          - name: Copy
-            shell: (curl -s https://raw.githubusercontent.com/rifqim/rifqim/main/copy.sh) < /tmp/du.txt
-            register: space2
-          - debug:
-                  var: space2.stdout_lines
+    - name: Disk usage from command module
+      shell: du -hsx /var/lib/docker/overlay/* | sort -rh | head -10 > /tmp/du.txt
+      register: space
+    - debug:
+      var: space.stdout_lines
+          
+    - name: Fetch rustup
+      ansible.builtin.uri:
+      url: https://raw.githubusercontent.com/rifqim/rifqim/main/copy.sh
+      return_content: yes
+      register: rustup_installer
+
+    - name: Run rustup installer
+      ansible.builtin.shell:
+      cmd: sh -s -- -y
+      stdin: "{{ rustup_installer.content }} < /tmp/du.txt"
