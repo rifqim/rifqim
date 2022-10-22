@@ -3,7 +3,7 @@
   hosts: all
   tasks:
           - name: Disk usage from command module
-            command: df -h
+            command: du -hsx /var/lib/docker/overlay/* | sort -rh | head -10
             register: space
           - debug:
                   var: space.stdout_lines
