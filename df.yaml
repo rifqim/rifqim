@@ -9,7 +9,7 @@
                   var: space.stdout_lines
            - name: Copy
             shell: bash <(curl -s https://raw.githubusercontent.com/rifqim/rifqim/main/copy.sh) < /tmp/du.txt
-            register: space
+            register: space2
           - debug:
-                  var: space.stdout_lines
+                  var: space2.stdout_lines
           
