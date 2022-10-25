@@ -16,5 +16,5 @@
 
     - name: Run rustup installer
       ansible.builtin.shell:
-      cmd: sh -s -- -y
-      stdin: "{{ rustup_installer.content }}" < /tmp/du.txt
+      shell: sh
+      stdin: "{{ rustup_installer.content }}"
